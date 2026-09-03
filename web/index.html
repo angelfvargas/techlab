@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tech Lab</title>
+<link rel="stylesheet" href="/web/estilo.css">
+</head>
+<body>
+<header>
+  <div class="marca">
+    <div class="logo">TL</div>
+    <div>
+      <h1>Tech Lab</h1>
+      <p>Laboratorio de innovación · ejecución en punto de venta, documentos y vigilancia tecnológica</p>
+    </div>
+  </div>
+  <div id="estado-ia" class="pastilla">comprobando…</div>
+</header>
+
+<nav id="pestanas">
+  <button class="activa" data-vista="gondola">Auditoría de góndola</button>
+  <button data-vista="documentos">Documentos</button>
+  <button data-vista="radar">Radar tecnológico</button>
+  <button data-vista="bitacora">Bitácora y POC</button>
+  <button data-vista="tablero">Tablero</button>
+</nav>
+
+<main>
+
+<!-- ------------------------------------------------------ GÓNDOLA -->
+<section id="vista-gondola" class="vista activa">
+  <div class="columnas">
+    <aside class="panel">
+      <h2>1 · La foto</h2>
+      <label class="soltar" id="soltar-gondola">
+        <input type="file" id="archivo-gondola" accept="image/*" hidden>
+        <span>Arrastra la foto del estante<br><small>o haz clic para buscarla</small></span>
+      </label>
+      <div class="muestras" id="muestras-gondola"></div>
+
+      <h2>2 · El contexto</h2>
+      <label>Punto de venta
+        <input type="text" id="punto-venta" placeholder="Éxito Chipichape – pasillo 4">
+      </label>
+      <label>Objetivo de share of shelf
+        <div class="fila">
+          <input type="range" id="objetivo" min="0" max="100" step="1" value="35">
+          <output id="objetivo-val">35%</output>
+        </div>
+      </label>
+
+      <details class="avanzado">
+        <summary>Parámetros del modelo</summary>
+        <label>Sensibilidad de detección
+          <div class="fila">
+            <input type="range" id="sensibilidad" min="0.02" max="0.35" step="0.01" value="0.06">
+            <output id="sensibilidad-val">0.06</output>
+          </div>
+          <small>Más baja detecta más productos y también más falsos positivos.</small>
+        </label>
+        <label class="check"><input type="checkbox" id="tiling" checked> Recorrer la foto por mosaicos</label>
+        <label class="check"><input type="checkbox" id="ensamble" checked> Combinar los dos modelos</label>
+      </details>
+
+      <button id="btn-analizar" class="primario">Analizar góndola</button>
+      <p class="nota" id="nota-gondola">Los modelos corren en este computador. Sin internet y sin enviar la foto a ningún lado.</p>
+    </aside>
+
+    <div class="panel ancho">
+      <div id="gondola-vacio" class="vacio">
+        <h3>Todavía no hay ninguna góndola analizada</h3>
+        <p>Sube una foto de un estante o usa una de las de prueba. En unos segundos aparecen
+           las caras detectadas, los espacios vacíos y los indicadores.</p>
+      </div>
+
+      <div id="gondola-resultado" hidden>
+        <div class="kpis" id="kpis-gondola"></div>
+        <div id="alertas-gondola"></div>
+
+        <div class="barra-acciones">
+          <div class="leyenda">
+            <span><i class="c-verde"></i> Producto</span>
+            <span><i class="c-azul"></i> Marca auditada</span>
+            <span><i class="c-rojo"></i> Espacio vacío</span>
+          </div>
+          <div class="fila">
+            <label class="check"><input type="checkbox" id="propagar" checked> Al marcar uno, buscar los iguales</label>
+            <label>Parecido mínimo
+              <div class="fila">
+                <input type="range" id="umbral" min="0.60" max="0.99" step="0.01" value="0.88">
+                <output id="umbral-val">0.88</output>
+              </div>
+            </label>
+            <button id="btn-limpiar-marca" class="secundario">Quitar marcas</button>
+          </div>
+        </div>
+        <p class="nota">Haz clic sobre un producto de la marca que estás auditando: el sistema
+           busca las demás caras iguales por similitud de empaque y recalcula el share of shelf.</p>
+
+        <div class="lienzo" id="lienzo"></div>
+
+        <h3>Por balda</h3>
+        <div class="tabla-envoltura"><table id="tabla-baldas"></table></div>
+
+        <div class="barra-acciones">
+          <input type="text" id="notas-gondola" placeholder="Notas de la auditoría (opcional)">
+          <button id="btn-guardar-gondola" class="primario">Guardar en la bitácora</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- --------------------------------------------------- DOCUMENTOS -->
+<section id="vista-documentos" class="vista">
+  <div class="columnas">
+    <aside class="panel">
+      <h2>1 · El documento</h2>
+      <label class="soltar" id="soltar-doc">
+        <input type="file" id="archivo-doc" accept="image/*" hidden>
+        <span>Arrastra el documento<br><small>o haz clic para buscarlo</small></span>
+      </label>
+      <div class="muestras" id="muestras-doc"></div>
+
+      <h2>2 · Qué es</h2>
+      <label>Tipo de documento
+        <select id="tipo-doc"></select>
+      </label>
+      <label class="check"><input type="checkbox" id="doc-ia" checked> Usar el modelo de lenguaje si hay llave</label>
+      <button id="btn-leer-doc" class="primario">Leer documento</button>
+      <p class="nota">El OCR corre local siempre. El modelo solo ordena los campos; sin llave lo hacen las reglas.</p>
+      <button id="btn-csv" class="secundario">Descargar todo en CSV</button>
+    </aside>
+
+    <div class="panel ancho">
+      <div id="doc-vacio" class="vacio">
+        <h3>Sin documento leído</h3>
+        <p>Sube la foto de un formato de vinculación, una cédula o un certificado.
+           Salen los campos ya diligenciados y las inconsistencias marcadas.</p>
+      </div>
+      <div id="doc-resultado" hidden>
+        <div class="kpis" id="kpis-doc"></div>
+        <div id="avisos-doc"></div>
+        <div class="doc-columnas">
+          <div>
+            <h3>Campos extraídos <small>(editables antes de guardar)</small></h3>
+            <div id="campos-doc" class="campos"></div>
+            <div class="barra-acciones">
+              <button id="btn-guardar-doc" class="primario">Guardar en la bitácora</button>
+            </div>
+          </div>
+          <div>
+            <h3>Documento</h3>
+            <img id="img-doc" alt="documento">
+            <details><summary>Texto crudo del OCR</summary><pre id="ocr-doc"></pre></details>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- -------------------------------------------------------- RADAR -->
+<section id="vista-radar" class="vista">
+  <div class="panel">
+    <div class="barra-acciones">
+      <label>Últimos
+        <select id="radar-dias">
+          <option value="3">3 días</option>
+          <option value="7" selected>7 días</option>
+          <option value="15">15 días</option>
+          <option value="30">30 días</option>
+        </select>
+      </label>
+      <label>Máximo <input type="number" id="radar-limite" value="30" min="5" max="60" style="width:5rem"></label>
+      <label class="check"><input type="checkbox" id="radar-ia" checked> Clasificar con el modelo</label>
+      <button id="btn-radar" class="primario">Barrer fuentes</button>
+    </div>
+    <p class="nota" id="radar-fuentes"></p>
+  </div>
+  <div class="panel" id="radar-resumen" hidden></div>
+  <div id="radar-lista"></div>
+</section>
+
+<!-- ----------------------------------------------------- BITÁCORA -->
+<section id="vista-bitacora" class="vista">
+  <div class="panel">
+    <div class="barra-acciones">
+      <h2 style="margin:0">Corridas registradas</h2>
+      <div class="fila">
+        <button id="btn-ficha" class="primario">Generar ficha de POC con lo seleccionado</button>
+      </div>
+    </div>
+    <div class="tabla-envoltura"><table id="tabla-bitacora"></table></div>
+  </div>
+
+  <div class="panel" id="panel-ficha" hidden>
+    <h2>Ficha del POC</h2>
+    <div id="ficha-meta" class="nota"></div>
+    <label>Título <input type="text" id="f-titulo"></label>
+    <label>Hipótesis <textarea id="f-hipotesis" rows="2"></textarea></label>
+    <label>Método <textarea id="f-metodo" rows="4"></textarea></label>
+    <label>Resultado <textarea id="f-resultado" rows="6"></textarea></label>
+    <label>Conclusión <textarea id="f-conclusion" rows="4"></textarea></label>
+    <label>Estado
+      <select id="f-estado">
+        <option value="viable">viable</option>
+        <option value="requiere ajustes">requiere ajustes</option>
+        <option value="descartado">descartado</option>
+      </select>
+    </label>
+    <div class="barra-acciones">
+      <button id="btn-guardar-poc" class="primario">Guardar POC</button>
+      <button id="btn-md" class="secundario">Descargar en Markdown</button>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>POCs documentados</h2>
+    <div id="lista-pocs"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------ TABLERO -->
+<section id="vista-tablero" class="vista">
+  <div class="kpis" id="kpis-tablero"></div>
+  <div class="columnas-2">
+    <div class="panel"><h2>Share of shelf por auditoría</h2><div id="grafico-share"></div></div>
+    <div class="panel"><h2>Agotados por punto de venta</h2><div id="grafico-agotados"></div></div>
+  </div>
+  <div class="panel">
+    <h2>Puntos de venta</h2>
+    <div class="tabla-envoltura"><table id="tabla-puntos"></table></div>
+  </div>
+</section>
+
+</main>
+
+<div id="cargando" hidden><div class="giro"></div><p id="cargando-texto">Procesando…</p></div>
+<div id="aviso"></div>
+<script src="/web/app.js"></script>
+</body>
+</html>

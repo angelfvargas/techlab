@@ -1,0 +1,177 @@
+:root{
+  --fondo:#0f1115; --panel:#171a21; --panel2:#1e222b; --borde:#2a2f3a;
+  --texto:#e6e9ef; --tenue:#98a1b3; --acento:#3b82f6; --verde:#22c55e;
+  --rojo:#ef4444; --ambar:#f59e0b; --radio:12px;
+}
+@media (prefers-color-scheme: light){
+  :root{--fondo:#f5f6f8;--panel:#fff;--panel2:#f0f2f6;--borde:#dfe3ea;
+        --texto:#161a20;--tenue:#5c6675;}
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--fondo);color:var(--texto);
+  font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1{font-size:1.15rem;margin:0}
+h2{font-size:.95rem;margin:1.4rem 0 .6rem;letter-spacing:.02em}
+h3{font-size:.9rem;margin:1.2rem 0 .5rem;color:var(--tenue);font-weight:600}
+small{color:var(--tenue);font-weight:400}
+a{color:var(--acento)}
+
+header{display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  padding:.9rem 1.4rem;background:var(--panel);border-bottom:1px solid var(--borde)}
+.marca{display:flex;gap:.8rem;align-items:center}
+.logo{width:38px;height:38px;border-radius:10px;display:grid;place-items:center;
+  background:linear-gradient(135deg,var(--acento),#8b5cf6);color:#fff;font-weight:700}
+header p{margin:.1rem 0 0;color:var(--tenue);font-size:.8rem}
+.pastilla{font-size:.75rem;padding:.35rem .7rem;border-radius:999px;
+  border:1px solid var(--borde);background:var(--panel2);color:var(--tenue);white-space:nowrap}
+.pastilla.ok{color:var(--verde);border-color:color-mix(in srgb,var(--verde) 40%,transparent)}
+.pastilla.local{color:var(--ambar);border-color:color-mix(in srgb,var(--ambar) 40%,transparent)}
+
+nav{display:flex;gap:.25rem;padding:0 1.4rem;background:var(--panel);
+  border-bottom:1px solid var(--borde);overflow-x:auto}
+nav button{background:none;border:none;border-bottom:2px solid transparent;color:var(--tenue);
+  padding:.7rem .9rem;font:inherit;font-size:.87rem;cursor:pointer;white-space:nowrap}
+nav button:hover{color:var(--texto)}
+nav button.activa{color:var(--texto);border-bottom-color:var(--acento)}
+
+main{padding:1.4rem;max-width:1500px;margin:0 auto}
+.vista{display:none}.vista.activa{display:block}
+.columnas{display:grid;grid-template-columns:320px 1fr;gap:1.2rem;align-items:start}
+.columnas-2{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.doc-columnas{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;align-items:start}
+@media(max-width:1000px){.columnas,.columnas-2,.doc-columnas{grid-template-columns:1fr}}
+
+.panel{background:var(--panel);border:1px solid var(--borde);border-radius:var(--radio);
+  padding:1.1rem;margin-bottom:1.2rem}
+.panel.ancho{min-height:200px}
+
+label{display:block;margin:.7rem 0;font-size:.85rem;color:var(--tenue)}
+label.check{display:flex;align-items:center;gap:.45rem;cursor:pointer}
+input[type=text],input[type=number],select,textarea{width:100%;margin-top:.3rem;padding:.5rem .6rem;
+  background:var(--panel2);border:1px solid var(--borde);border-radius:8px;color:var(--texto);
+  font:inherit;font-size:.87rem}
+textarea{resize:vertical;line-height:1.45}
+input[type=range]{width:100%;accent-color:var(--acento)}
+.fila{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap}
+.fila output{font-variant-numeric:tabular-nums;min-width:3rem;color:var(--texto)}
+details.avanzado{margin:.8rem 0;border-top:1px solid var(--borde);padding-top:.6rem}
+summary{cursor:pointer;font-size:.83rem;color:var(--tenue)}
+
+button.primario,button.secundario{padding:.55rem .95rem;border-radius:8px;font:inherit;
+  font-size:.87rem;cursor:pointer;border:1px solid transparent}
+button.primario{background:var(--acento);color:#fff;width:100%;margin-top:.5rem}
+button.primario:hover{filter:brightness(1.1)}
+button.secundario{background:var(--panel2);color:var(--texto);border-color:var(--borde)}
+button:disabled{opacity:.5;cursor:not-allowed}
+
+.soltar{display:grid;place-items:center;text-align:center;min-height:110px;cursor:pointer;
+  border:1.5px dashed var(--borde);border-radius:var(--radio);color:var(--tenue);
+  background:var(--panel2);font-size:.85rem;transition:.15s}
+.soltar:hover,.soltar.encima{border-color:var(--acento);color:var(--texto)}
+.muestras{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.6rem}
+.muestras button{background:var(--panel2);border:1px solid var(--borde);color:var(--tenue);
+  border-radius:6px;padding:.25rem .5rem;font-size:.75rem;cursor:pointer}
+.muestras button:hover{color:var(--texto);border-color:var(--acento)}
+.nota{font-size:.78rem;color:var(--tenue);margin:.6rem 0 0}
+
+.vacio{text-align:center;padding:3rem 1rem;color:var(--tenue)}
+.vacio h3{color:var(--texto)}
+.vacio p{max-width:46ch;margin:.5rem auto 0;font-size:.87rem}
+
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.7rem;margin-bottom:1rem}
+.kpi{background:var(--panel2);border:1px solid var(--borde);border-radius:10px;padding:.75rem .85rem}
+.kpi .v{font-size:1.55rem;font-weight:650;line-height:1.1;font-variant-numeric:tabular-nums}
+.kpi .e{font-size:.75rem;color:var(--tenue);margin-top:.2rem}
+.kpi.bien .v{color:var(--verde)} .kpi.mal .v{color:var(--rojo)} .kpi.ojo .v{color:var(--ambar)}
+
+.alerta{display:flex;gap:.6rem;padding:.6rem .8rem;border-radius:9px;font-size:.85rem;
+  margin-bottom:.5rem;border:1px solid var(--borde);background:var(--panel2)}
+.alerta.alta{border-color:color-mix(in srgb,var(--rojo) 45%,transparent);
+  background:color-mix(in srgb,var(--rojo) 9%,var(--panel2))}
+.alerta.media{border-color:color-mix(in srgb,var(--ambar) 45%,transparent);
+  background:color-mix(in srgb,var(--ambar) 9%,var(--panel2))}
+.alerta.ok{border-color:color-mix(in srgb,var(--verde) 45%,transparent);
+  background:color-mix(in srgb,var(--verde) 9%,var(--panel2))}
+
+.barra-acciones{display:flex;justify-content:space-between;align-items:center;gap:.8rem;
+  flex-wrap:wrap;margin:1rem 0}
+.barra-acciones input[type=text]{flex:1;min-width:200px;margin:0}
+.barra-acciones button.primario{width:auto;margin:0}
+.leyenda{display:flex;gap:1rem;font-size:.78rem;color:var(--tenue)}
+.leyenda i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:.3rem}
+.c-verde{background:var(--verde)}.c-azul{background:var(--acento)}.c-rojo{background:var(--rojo)}
+
+.lienzo{position:relative;line-height:0;border-radius:10px;overflow:hidden;border:1px solid var(--borde)}
+.lienzo img{width:100%;display:block}
+.lienzo svg{position:absolute;inset:0;width:100%;height:100%}
+.lienzo rect.prod{fill:transparent;stroke:var(--verde);stroke-width:2;cursor:pointer;
+  vector-effect:non-scaling-stroke}
+.lienzo rect.prod:hover{fill:rgba(255,255,255,.18)}
+.lienzo rect.marca{stroke:var(--acento);stroke-width:3;fill:color-mix(in srgb,var(--acento) 22%,transparent)}
+.lienzo rect.vacio{stroke:var(--rojo);stroke-width:3;fill:color-mix(in srgb,var(--rojo) 25%,transparent);
+  vector-effect:non-scaling-stroke}
+
+.tabla-envoltura{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.83rem}
+th,td{text-align:left;padding:.45rem .6rem;border-bottom:1px solid var(--borde);white-space:nowrap}
+th{color:var(--tenue);font-weight:600;font-size:.77rem;text-transform:uppercase;letter-spacing:.04em}
+tbody tr:hover{background:var(--panel2)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+
+.campos{display:grid;gap:.5rem}
+.campo{display:grid;grid-template-columns:150px 1fr;gap:.6rem;align-items:center}
+.campo label{margin:0;font-size:.8rem}
+.campo input{margin:0}
+.campo.error input{border-color:var(--rojo)}
+.campo.aviso input{border-color:var(--ambar)}
+#img-doc{width:100%;border-radius:9px;border:1px solid var(--borde)}
+pre{background:var(--panel2);border:1px solid var(--borde);border-radius:8px;padding:.7rem;
+  font-size:.78rem;overflow:auto;max-height:280px;white-space:pre-wrap}
+
+.tarjeta{background:var(--panel);border:1px solid var(--borde);border-radius:var(--radio);
+  padding:.9rem 1rem;margin-bottom:.7rem}
+.tarjeta h4{margin:0 0 .3rem;font-size:.92rem}
+.tarjeta .meta{font-size:.75rem;color:var(--tenue);display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:.4rem}
+.tarjeta p{margin:.35rem 0;font-size:.84rem}
+.rel{display:inline-grid;place-items:center;min-width:1.6rem;height:1.6rem;border-radius:6px;
+  font-weight:700;font-size:.8rem;background:var(--panel2);border:1px solid var(--borde)}
+.rel.r5,.rel.r4{background:color-mix(in srgb,var(--verde) 22%,var(--panel2));color:var(--verde);
+  border-color:color-mix(in srgb,var(--verde) 45%,transparent)}
+.rel.r3{background:color-mix(in srgb,var(--ambar) 20%,var(--panel2));color:var(--ambar)}
+.uso{border-left:2px solid var(--acento);padding-left:.6rem;color:var(--texto)}
+
+svg.gr{width:100%;height:200px;display:block}
+svg.gr text{fill:var(--tenue);font-size:10px}
+svg.gr .barra{fill:var(--acento)}
+svet, svg.gr .linea{fill:none;stroke:var(--acento);stroke-width:2}
+svg.gr .punto{fill:var(--acento)}
+svg.gr .eje{stroke:var(--borde);stroke-width:1}
+
+#cargando{position:fixed;inset:0;background:color-mix(in srgb,var(--fondo) 82%,transparent);
+  display:grid;place-items:center;gap:.8rem;z-index:50;backdrop-filter:blur(2px)}
+#cargando p{color:var(--tenue);font-size:.85rem}
+.giro{width:34px;height:34px;border:3px solid var(--borde);border-top-color:var(--acento);
+  border-radius:50%;animation:g .8s linear infinite;margin:0 auto}
+@keyframes g{to{transform:rotate(360deg)}}
+#aviso{position:fixed;right:1.2rem;bottom:1.2rem;display:grid;gap:.5rem;z-index:60}
+.toast{background:var(--panel);border:1px solid var(--borde);border-left:3px solid var(--acento);
+  border-radius:9px;padding:.6rem .9rem;font-size:.85rem;max-width:380px;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);animation:e .2s}
+.toast.error{border-left-color:var(--rojo)}
+.toast.ok{border-left-color:var(--verde)}
+@keyframes e{from{opacity:0;transform:translateY(6px)}}
+
+/* El atributo hidden tiene que ganarle a los display de arriba. */
+[hidden]{display:none!important}
+.fila input[type=range]{flex:1;width:auto;min-width:120px}
+
+/* La barra de pestañas se queda arriba: en la demo hay que poder saltar de
+   módulo sin volver a subir la página. */
+header{position:sticky;top:0;z-index:20}
+nav{position:sticky;top:63px;z-index:19}
+
+/* Controles del radar: que no se estiren a todo lo ancho de la barra. */
+#vista-radar .barra-acciones label{margin:0;display:flex;align-items:center;gap:.5rem}
+#vista-radar .barra-acciones select{width:auto;margin:0}
+#vista-radar .barra-acciones{justify-content:flex-start;gap:1.4rem}
+#vista-radar .barra-acciones button.primario{margin-left:auto}

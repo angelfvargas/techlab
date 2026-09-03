@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+data/uploads/
+data/techlab.db
+modelos/*.pt
+
+weights/
+
+# Notas personales de la entrevista: no van al repo público
+GUION_ENTREVISTA.md
+GLOSARIO.md
