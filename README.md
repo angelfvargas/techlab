@@ -12,6 +12,8 @@ y gestión humana hace todos los días a mano:
 | **Bitácora y POC** | La documentación que nunca se escribe | Cada corrida queda registrada y la ficha del POC se genera de ahí |
 | **Tablero** | El consolidado en Excel | Indicadores por punto de venta y ahorro estimado |
 
+![Demo: auditoría de góndola, documentos y tablero de Tech Lab](docs-demo.gif)
+
 ## Arrancar
 
 ```bash
